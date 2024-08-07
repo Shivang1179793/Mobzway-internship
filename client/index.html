@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -43,7 +45,7 @@
         <button type="button" id="saveButton">Save</button>
     </form>
 
-    <button onclick="window.location.href='view.html'">View Users</button>
+    <button id="viewUsersButton">View Users</button>
 
     <script>
         $(document).ready(function () {
@@ -64,7 +66,7 @@
                 };
 
                 $.ajax({
-                    url: 'http://localhost:3000/api/users',
+                    url: 'https://form-50ur.onrender.com/api/users',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(userData),
@@ -76,6 +78,10 @@
                         alert('Error saving user!');
                     }
                 });
+            });
+
+            $('#viewUsersButton').click(function () {
+                window.location.href = 'view.html';
             });
         });
     </script>

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Users</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -29,9 +31,10 @@
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: 'http://localhost:3000/api/users',
+                url: 'https://form-50ur.onrender.com/api/users',  // Replace with your API URL
                 type: 'GET',
                 success: function (users) {
+                    $('#usersTable tbody').empty();  // Clear existing data
                     users.forEach(function (user) {
                         $('#usersTable tbody').append(
                             `<tr>
