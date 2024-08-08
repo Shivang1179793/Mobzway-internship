@@ -10,31 +10,37 @@
 
 <body>
     <h1>Add User</h1>
-    <form id="userForm">
-        <!-- Form fields here -->
+    <form id="userForm" novalidate>
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required><br><br>
+        <input type="text" id="firstName" name="firstName" required pattern="[A-Za-z\s]+"
+            title="Only letters and spaces are allowed"><br><br>
 
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required><br><br>
+        <input type="text" id="lastName" name="lastName" required pattern="[A-Za-z\s]+"
+            title="Only letters and spaces are allowed"><br><br>
 
         <label for="mobileNo">Mobile No:</label>
-        <input type="text" id="mobileNo" name="mobileNo" pattern="\d{10}" required><br><br>
+        <input type="text" id="mobileNo" name="mobileNo" pattern="\d{10}" title="Mobile number must be 10 digits"
+            required><br><br>
 
         <label for="emailId">Email Id:</label>
         <input type="email" id="emailId" name="emailId" required><br><br>
 
         <label for="street">Street:</label>
-        <input type="text" id="street" name="street" required><br><br>
+        <input type="text" id="street" name="street" required pattern="[A-Za-z0-9\s]+"
+            title="Only letters, numbers, and spaces are allowed"><br><br>
 
         <label for="city">City:</label>
-        <input type="text" id="city" name="city" required><br><br>
+        <input type="text" id="city" name="city" required pattern="[A-Za-z\s]+"
+            title="Only letters and spaces are allowed"><br><br>
 
         <label for="state">State:</label>
-        <input type="text" id="state" name="state" required><br><br>
+        <input type="text" id="state" name="state" required pattern="[A-Za-z\s]+"
+            title="Only letters and spaces are allowed"><br><br>
 
         <label for="country">Country:</label>
-        <input type="text" id="country" name="country" required><br><br>
+        <input type="text" id="country" name="country" required pattern="[A-Za-z\s]+"
+            title="Only letters and spaces are allowed"><br><br>
 
         <label for="loginId">Login Id:</label>
         <input type="text" id="loginId" name="loginId" minlength="8" required><br><br>
@@ -65,19 +71,23 @@
                     password: $('#password').val()
                 };
 
-                $.ajax({
-                    url: 'https://form-50ur.onrender.com/api/users',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userData),
-                    success: function (response) {
-                        alert('User saved successfully!');
-                        $('#userForm')[0].reset();
-                    },
-                    error: function (error) {
-                        alert('Error saving user!');
-                    }
-                });
+                if (document.getElementById('userForm').checkValidity()) {
+                    $.ajax({
+                        url: 'https://form-50ur.onrender.com/api/users',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(userData),
+                        success: function (response) {
+                            alert('User saved successfully!');
+                            $('#userForm')[0].reset();
+                        },
+                        error: function (error) {
+                            alert('Error saving user!');
+                        }
+                    });
+                } else {
+                    document.getElementById('userForm').reportValidity();
+                }
             });
 
             $('#viewUsersButton').click(function () {
